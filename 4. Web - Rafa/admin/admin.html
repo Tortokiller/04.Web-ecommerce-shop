@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Intranet — 7 Dragons</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800&family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
+  <link rel="stylesheet" href="../CSS/style.css">
+  <link rel="stylesheet" href="../CSS/admin.css">
+</head>
+<body class="admin-body">
+
+  <!-- LOGIN GATE -->
+  <div class="admin-login-screen" id="admin-login-screen">
+    <form class="admin-login-card" id="admin-login-form">
+      <span class="admin-login-badge">🔒 Acceso interno</span>
+      <img src="../logo.png" alt="7 Dragons" class="admin-login-logo">
+      <h1>Intranet 7 Dragons</h1>
+      <p class="admin-login-sub">Gestión de compras y stock. Solo para el equipo.</p>
+      <div class="admin-pw-field">
+        <input type="password" id="admin-password" class="admin-login-input" placeholder="Contraseña" autocomplete="current-password" required>
+        <button type="button" class="admin-pw-toggle" id="admin-pw-toggle" aria-label="Mostrar contraseña">👁</button>
+      </div>
+      <button type="submit" class="button accent button-full">Entrar</button>
+      <p class="admin-login-error" id="admin-login-error" hidden>Contraseña incorrecta</p>
+    </form>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="admin-app" id="admin-app" hidden>
+
+    <header class="admin-topbar">
+      <a href="../index.html" class="admin-brand">
+        <img src="../logo.png" alt="7 Dragons" class="admin-brand-logo">
+        <span>Intranet</span>
+      </a>
+      <div class="admin-topbar-actions">
+        <a href="../index.html" class="admin-link-btn">Ver tienda</a>
+        <button class="admin-link-btn" id="admin-logout">Cerrar sesión</button>
+      </div>
+    </header>
+
+    <main class="admin-main">
+      <div class="admin-container">
+
+        <div class="admin-page-head">
+          <div>
+            <h1 class="admin-page-title">Compras a proveedores</h1>
+            <p class="admin-page-sub">Registra y consulta todos los productos comprados para reponer stock.</p>
+          </div>
+          <button class="button accent" id="admin-new-btn">+ Nueva compra</button>
+        </div>
+
+        <!-- STATS -->
+        <section class="admin-stats" id="admin-stats">
+          <div class="admin-stat-card">
+            <span class="admin-stat-icon">💶</span>
+            <span class="admin-stat-label">Gasto total</span>
+            <strong class="admin-stat-value" id="stat-total">€0,00</strong>
+          </div>
+          <div class="admin-stat-card">
+            <span class="admin-stat-icon">🧾</span>
+            <span class="admin-stat-label">Compras registradas</span>
+            <strong class="admin-stat-value" id="stat-count">0</strong>
+          </div>
+          <div class="admin-stat-card">
+            <span class="admin-stat-icon">📦</span>
+            <span class="admin-stat-label">Unidades compradas</span>
+            <strong class="admin-stat-value" id="stat-units">0</strong>
+          </div>
+          <div class="admin-stat-card">
+            <span class="admin-stat-icon">🏆</span>
+            <span class="admin-stat-label">Categoría con más gasto</span>
+            <strong class="admin-stat-value" id="stat-top-cat">—</strong>
+          </div>
+        </section>
+
+        <!-- FORM (hidden until "Nueva compra" / editar) -->
+        <section class="admin-card admin-form-card" id="admin-form-card" hidden>
+          <h2 class="admin-card-title" id="admin-form-title">Nueva compra</h2>
+          <form id="admin-purchase-form" class="admin-form">
+            <input type="hidden" id="purchase-id">
+            <div class="admin-form-grid">
+              <label class="admin-field">
+                <span>Fecha</span>
+                <input type="date" id="f-date" required>
+              </label>
+              <label class="admin-field">
+                <span>Producto</span>
+                <input type="text" id="f-product" placeholder="Ej. Pokémon Chaos Rising Booster Box" required>
+              </label>
+              <label class="admin-field">
+                <span>Categoría</span>
+                <select id="f-category" required>
+                  <option value="Pokémon">Pokémon</option>
+                  <option value="Dragon Ball">Dragon Ball</option>
+                  <option value="Magic">Magic</option>
+                  <option value="Figuras">Figuras</option>
+                  <option value="Manga & Merch">Manga &amp; Merch</option>
+                  <option value="Videojuegos">Videojuegos</option>
+                  <option value="Coleccionismo">Coleccionismo</option>
+                  <option value="Otros">Otros</option>
+                </select>
+              </label>
+              <label class="admin-field">
+                <span>Proveedor</span>
+                <input type="text" id="f-supplier" placeholder="Ej. Distrigame, Asmodee...">
+              </label>
+              <label class="admin-field">
+                <span>Cantidad</span>
+                <input type="number" id="f-qty" min="1" step="1" value="1" required>
+              </label>
+              <label class="admin-field">
+                <span>Coste unitario (€)</span>
+                <input type="number" id="f-cost" min="0" step="0.01" value="0" required>
+              </label>
+              <label class="admin-field admin-field-wide">
+                <span>Notas</span>
+                <input type="text" id="f-notes" placeholder="Opcional">
+              </label>
+            </div>
+            <div class="admin-form-actions">
+              <button type="button" class="admin-link-btn" id="admin-cancel-btn">Cancelar</button>
+              <button type="submit" class="button accent">Guardar compra</button>
+            </div>
+          </form>
+        </section>
+
+        <!-- FILTERS -->
+        <section class="admin-card admin-filters-card">
+          <div class="admin-filters">
+            <input type="search" id="filter-search" class="admin-input" placeholder="Buscar producto o proveedor...">
+            <select id="filter-category" class="admin-input">
+              <option value="">Todas las categorías</option>
+              <option value="Pokémon">Pokémon</option>
+              <option value="Dragon Ball">Dragon Ball</option>
+              <option value="Magic">Magic</option>
+              <option value="Figuras">Figuras</option>
+              <option value="Manga & Merch">Manga &amp; Merch</option>
+              <option value="Videojuegos">Videojuegos</option>
+              <option value="Coleccionismo">Coleccionismo</option>
+              <option value="Otros">Otros</option>
+            </select>
+            <button class="admin-link-btn" id="admin-export-btn">⬇ Exportar CSV</button>
+          </div>
+        </section>
+
+        <!-- TABLE -->
+        <section class="admin-card admin-table-card">
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Fecha</th>
+                  <th>Producto</th>
+                  <th>Categoría</th>
+                  <th>Proveedor</th>
+                  <th>Cant.</th>
+                  <th>Coste/u.</th>
+                  <th>Total</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="admin-table-body">
+                <!-- rows injected by admin.js -->
+              </tbody>
+            </table>
+            <div class="admin-empty-msg" id="admin-empty-msg" hidden>
+              <span class="admin-empty-icon">🐉</span>
+              <p>Todavía no hay compras registradas.</p>
+              <p class="admin-empty-hint">Pulsa «+ Nueva compra» para añadir la primera.</p>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="../JS/admin.js"></script>
+</body>
+</html>
