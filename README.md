@@ -5,7 +5,6 @@ Sitio estático (HTML + CSS + JS vanilla, sin build ni frameworks) para "7 Drago
 ## Estructura del proyecto
 
 ```
-.
 ├── index.html                Tienda: home, hero, categorías, productos, carrito, footer
 ├── logo.png                  Logo de la marca
 ├── favicon.ico / apple-touch-icon.png
